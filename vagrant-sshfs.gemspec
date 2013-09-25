@@ -5,7 +5,7 @@ require 'vagrant-sshfs/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "vagrant-sshfs"
-  spec.version       = Vagrant::SshFs::VERSION
+  spec.version       = Vagrant::SshFS::VERSION
   spec.authors       = ["fabiokr"]
   spec.email         = ["fabiokr@gmail.com"]
   spec.description   = "A Vagrant plugin that mounts sshfs in the host machine."
