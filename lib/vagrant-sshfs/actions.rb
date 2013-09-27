@@ -15,10 +15,6 @@ module Vagrant
           end
         end
 
-        def unmount!
-          # `fusermount -u #{@target}`
-        end
-
         private
 
         def paths
@@ -116,17 +112,6 @@ module Vagrant
 
         def call(env)
           Builder.new(env).mount!
-        end
-      end
-
-      class Destroy
-        def initialize(app, env)
-          @app     = app
-          @machine = env[:machine]
-        end
-
-        def call(env)
-          Builder.new(env).unmount!
         end
       end
     end

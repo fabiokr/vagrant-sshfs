@@ -12,10 +12,6 @@ module Vagrant
       action_hook(:sshfs, :machine_action_up) do |hook|
         hook.append(Vagrant::SshFS::Actions::Up)
       end
-
-      action_hook(:sshfs, :machine_action_destroy) do |hook|
-        hook.append(Vagrant::SshFS::Actions::Destroy)
-      end
     end
   end
 end

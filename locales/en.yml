@@ -4,6 +4,7 @@ en:
       sshfs:
         info:
           mounting: "Mounting SSHFS for `%{src}` to `%{target}`"
+          unmounted: "Unmounted SSHFS for `%{target}`"
           created_src: "Created src `%{src}`"
           created_target: "Created target `%{target}`"
         ask:
