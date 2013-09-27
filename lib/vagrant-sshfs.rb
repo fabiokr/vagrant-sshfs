@@ -1,23 +1,22 @@
+begin
+  require "vagrant"
+rescue LoadError
+  raise "The Vagrant bindfs plugin must be run within Vagrant"
+end
+
+require "vagrant-sshfs/version"
+require "vagrant-sshfs/errors"
+require "vagrant-sshfs/plugin"
 require "vagrant-sshfs/actions"
 
 module Vagrant
   module SshFS
-    class Plugin < Vagrant.plugin("2")
-      name "vagrant-sshfs"
-      description "A Vagrant plugin that mounts sshfs in the host machine."
-
-      config "sshfs" do
-        require "vagrant-sshfs/config"
-        Config
-      end
-
-      action_hook(:sshfs, :machine_action_up) do |hook|
-        hook.append(Vagrant::SshFS::Actions::Up)
-      end
-
-      action_hook(:sshfs, :machine_action_destroy) do |hook|
-        hook.append(Vagrant::SshFS::Actions::Destroy)
-      end
+    # Returns the path to the source of this plugin
+    def self.source_root
+      @source_root ||= Pathname.new(File.expand_path('../../', __FILE__))
     end
+
+    I18n.load_path << File.expand_path('locales/en.yml', source_root)
+    I18n.reload!
   end
 end
