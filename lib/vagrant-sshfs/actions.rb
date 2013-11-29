@@ -42,22 +42,18 @@ module Vagrant
         end
 
         def check_src!(src)
-          folder = src_folder(src)
+          src = src_folder(src)
 
-          unless machine.communicate.test("test -d #{folder}")
-            if ask("create_src", src: folder) == "y"
-              machine.communicate.execute("mkdir -p #{folder}")
-              info("created_src", src: folder)
+          unless machine.communicate.test("test -d #{src}")
+            if ask("create_src", src: src) == "y"
+              machine.communicate.execute("mkdir -p #{src}")
+              info("created_src", src: src)
             else
-              error("not_created_src", src: folder)
+              error("not_created_src", src: src)
             end
           end
 
-          folder
-        end
-
-        def src_folder(src)
-          "/home/#{username}/#{src}"
+          src
         end
 
         def check_target!(target)
