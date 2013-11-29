@@ -16,7 +16,7 @@ In the `Vagrantfile`, add a configuration like this:
 
 `config.sshfs.paths = { "src" => "mountpoint" }`
 
-`src` is the source folder in the box, `mountpoint` is the folder in the host machine. `src` is relative to the vagrant use home folder, usually `/home/vagrant`. `mountpoint` is relative to the `Vagrantfile`.
+`src` is the source absolute path to the folder in the box, `mountpoint` is the folder in the host machine. `mountpoint` can be an absolute path, or relative to the `Vagrantfile`.
 
 ## Contributing
 
