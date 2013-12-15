@@ -38,12 +38,10 @@ module Vagrant
         end
 
         def private_key
-          ssh_info[:private_key_path]
+          Array(ssh_info[:private_key_path]).first
         end
 
         def check_src!(src)
-          src = src_folder(src)
-
           unless machine.communicate.test("test -d #{src}")
             if ask("create_src", src: src) == "y"
               machine.communicate.execute("mkdir -p #{src}")
