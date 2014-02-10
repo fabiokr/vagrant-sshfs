@@ -6,7 +6,7 @@ module Vagrant
 
       def initialize
         @paths = {}
-        @username = ''
+        @username = nil
       end
 
       def merge(other)
