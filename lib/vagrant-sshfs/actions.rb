@@ -26,12 +26,8 @@ module Vagrant
         end
 
         def username
-          if machine.config.sshfs.username.nil?
-            ssh_info[:username]
-          else
-            machine.config.sshfs.username
-          end
-       end
+          machine.config.sshfs.username ||= ssh_info[:username]
+        end
 
         def host
           ssh_info[:host]
