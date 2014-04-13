@@ -3,6 +3,7 @@ en:
     config:
       sshfs:
         info:
+          unmounting: "Unmounting SSHFS for `%{src}`"
           mounting: "Mounting SSHFS for `%{src}` to `%{target}`"
           unmounted: "Unmounted SSHFS for `%{target}`"
           created_src: "Created src `%{src}`"
