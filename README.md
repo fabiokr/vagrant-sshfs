@@ -22,6 +22,10 @@ By default it will use the Vagrant ssh username. You can change that with the fo
 
 `config.sshfs.username = "theusername"`
 
+The plugin is enabled by default, so it will run everytime the machine starts. In case that is not desired, you can disabled that with the following configuration:
+
+`config.sshfs.enabled = false`
+
 ## Contributing
 
 If you have issues or ideas, please contribute! You can create an issue throught Github, or send a Pull Request.
