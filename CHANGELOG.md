@@ -1,3 +1,9 @@
+## vagrant-sshfs 0.0.5 ##
+
+*   Allows to disable the plugin to run on demand.
+
+    *Stéphane Klein*
+
 ## vagrant-sshfs 0.0.4 (March 5, 2014) ##
 
 *   Allows to set a custom ssh username.

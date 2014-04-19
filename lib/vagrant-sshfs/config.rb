@@ -3,10 +3,12 @@ module Vagrant
     class Config < Vagrant.plugin(2, :config)
       attr_accessor :paths
       attr_accessor :username
+      attr_accessor :enabled
 
       def initialize
         @paths = {}
         @username = nil
+        @enabled = true
       end
 
       def merge(other)

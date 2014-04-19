@@ -100,12 +100,11 @@ module Vagrant
 
       class Up
         def initialize(app, env)
-          @app     = app
-          @machine = env[:machine]
+          @app = app
         end
 
         def call(env)
-          Builder.new(env).mount!
+          Builder.new(env).mount! if env[:machine].config.sshfs.enabled
         end
       end
     end
