@@ -11,7 +11,12 @@ module Vagrant
         def mount!
           paths.each do |src, target|
             info("unmounting", src: target)
-            `fusermount -u -q #{target}`
+
+            if `which fusermount`.empty?
+              `umount #{target}`
+            else
+              `fusermount -u -q #{target}`
+            end
 
             info("mounting", src: src, target: target)
             `sshfs -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key}`
