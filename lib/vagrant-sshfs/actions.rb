@@ -11,11 +11,33 @@ module Vagrant
         def mount!
           paths.each do |src, target|
             info("mounting", src: src, target: target)
-            `sshfs -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key}`
+            
+            if machine.config.sshfs.mount_on_guest
+              mount_on_guest(src, target)
+            else
+              mount_on_host(src, target)
+            end
           end
         end
 
         private
+        
+        def mount_on_host(src, target)
+          `sshfs -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key}`
+        end
+        
+        def mount_on_guest(src, target)
+          source = File.expand_path(src)
+          host = machine.config.sshfs.host_addr
+          user = `whoami`.strip
+          pass = Shellwords.escape(@env[:ui].ask(i18n("ask.pass", :user => "#{user}@#{host}"), :echo => false))
+          command = "echo \"#{pass}\" | sshfs -o allow_other -o password_stdin #{user}@#{host}:#{source} #{target}"
+          status = machine.communicate.execute(command, :sudo => true, :error_check => false)
+          
+          if status != 0
+            error('not_mounted', src: source, target: target)
+          end
+        end
 
         def paths
           machine.config.sshfs.paths

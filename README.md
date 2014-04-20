@@ -18,6 +18,19 @@ In the `Vagrantfile`, add a configuration like this:
 
 `src` is the source absolute path to the folder in the box, `mountpoint` is the folder in the host machine. `mountpoint` can be an absolute path, or relative to the `Vagrantfile`.
 
+### Mounting on guest (box)
+
+You need to have `sshfs` installed on guest machine and ssh server on host.
+
+To mount a host folder on guest machine add a configuration like this:
+
+    config.sshfs.mount_on_guest = true
+    config.sshfs.paths = { "src" => "mountpoint" }
+    config.sshfs.host_addr = '10.0.2.2'
+
+`src` is the source absolute path to the folder in the host machine, `mountpoint` is the folder in the guest. `src` can be an absolute path, or relative to the `Vagrantfile`.
+`host_addr` is the host machine IP accessible from guest.
+
 ## Contributing
 
 If you have issues or ideas, please contribute! You can create an issue throught Github, or send a Pull Request.
