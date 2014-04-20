@@ -1,7 +1,7 @@
 begin
   require "vagrant"
 rescue LoadError
-  raise "The Vagrant bindfs plugin must be run within Vagrant"
+  raise "The Vagrant sshfs plugin must be run within Vagrant"
 end
 
 require "vagrant-sshfs/version"

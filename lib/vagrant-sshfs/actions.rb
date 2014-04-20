@@ -11,11 +11,9 @@ module Vagrant
         def mount!
           paths.each do |src, target|
             info("mounting", src: src, target: target)
-            `sshfs -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key}`
+            mount(src, target)
           end
         end
-
-        private
 
         def paths
           machine.config.sshfs.paths
@@ -98,13 +96,46 @@ module Vagrant
         end
       end
 
+      class HostBuilder < Builder
+        private
+
+        def mount(src, target)
+          `sshfs -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key}`
+        end
+      end
+
+      class GuestBuilder < Builder
+        private
+
+        def mount(src, target)
+          source = File.expand_path(src)
+          host = machine.config.sshfs.host_addr
+          user = `whoami`.strip
+          pass = Shellwords.escape(@env[:ui].ask(i18n("ask.pass", :user => "#{user}@#{host}"), :echo => false))
+          command = "echo \"#{pass}\" | sshfs -o allow_other -o password_stdin #{user}@#{host}:#{source} #{target}"
+          status = machine.communicate.execute(command, :sudo => true, :error_check => false)
+
+          if status != 0
+            error('not_mounted', src: source, target: target)
+          end
+        end
+      end
+
       class Up
         def initialize(app, env)
           @app = app
         end
 
         def call(env)
-          Builder.new(env).mount! if env[:machine].config.sshfs.enabled
+          get_builder(env).mount! if env[:machine].config.sshfs.enabled
+        end
+
+        def get_builder(env)
+          if @machine.config.sshfs.mount_on_guest
+            GuestBuilder.new(env)
+          else
+            HostBuilder.new(env)
+          end
         end
       end
     end

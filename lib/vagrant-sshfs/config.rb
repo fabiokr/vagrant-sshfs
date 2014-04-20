@@ -4,6 +4,8 @@ module Vagrant
       attr_accessor :paths
       attr_accessor :username
       attr_accessor :enabled
+      attr_accessor :mount_on_guest
+      attr_accessor :host_addr
 
       def initialize
         @paths = {}

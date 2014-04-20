@@ -10,8 +10,10 @@ en:
         ask:
           create_src: "Source folder `%{src}` does not exist, create?"
           create_target: "Target folder `%{target}` does not exist, create?"
+          pass: "Password for `%{user}`:"
         error:
           base: "vagrant-sshfs failed and couldn't proceed"
           non_empty_target: "Non empty target folder `%{target}`"
           not_created_src: "Source folder `%{src}` was not created"
           not_created_target: "Target folder `%{target}` was not created"
+          not_mounted: "Error when mounting `%{src}` to `%{target}`"
