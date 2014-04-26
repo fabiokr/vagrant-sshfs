@@ -4,6 +4,10 @@
 
     *Stéphane Klein*
 
+*   Allows to mount a host folder on the guest machine
+
+    *Adrian Olek*
+
 ## vagrant-sshfs 0.0.4 (March 5, 2014) ##
 
 *   Allows to set a custom ssh username.
