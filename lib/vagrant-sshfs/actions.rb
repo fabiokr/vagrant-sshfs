@@ -15,8 +15,41 @@ module Vagrant
           end
         end
 
+        def mount
+          raise NotImplementedError
+        end
+
         def paths
           machine.config.sshfs.paths
+        end
+
+        def machine
+          @env[:machine]
+        end
+
+        def info(key, *args)
+          @env[:ui].info(i18n("info.#{key}", *args))
+        end
+
+        def ask(key, *args)
+          @env[:ui].ask(i18n("ask.#{key}", *args), :new_line => true)
+        end
+
+        def error(key, *args)
+          @env[:ui].error(i18n("error.#{key}", *args))
+          raise Error, :base
+        end
+
+        def i18n(key, *args)
+          I18n.t("vagrant.config.sshfs.#{key}", *args)
+        end
+      end
+
+      class HostBuilder < Builder
+        private
+
+        def mount(src, target)
+          `sshfs -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key}`
         end
 
         def ssh_info
@@ -73,35 +106,6 @@ module Vagrant
         def target_folder(target)
           File.expand_path(target)
         end
-
-        def machine
-          @env[:machine]
-        end
-
-        def info(key, *args)
-          @env[:ui].info(i18n("info.#{key}", *args))
-        end
-
-        def ask(key, *args)
-          @env[:ui].ask(i18n("ask.#{key}", *args), :new_line => true)
-        end
-
-        def error(key, *args)
-          @env[:ui].error(i18n("error.#{key}", *args))
-          raise Error, :base
-        end
-
-        def i18n(key, *args)
-          I18n.t("vagrant.config.sshfs.#{key}", *args)
-        end
-      end
-
-      class HostBuilder < Builder
-        private
-
-        def mount(src, target)
-          `sshfs -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key}`
-        end
       end
 
       class GuestBuilder < Builder
@@ -109,25 +113,37 @@ module Vagrant
 
         def mount(src, target)
           source = File.expand_path(src)
-          host = machine.config.sshfs.host_addr
-          user = `whoami`.strip
-          pass = Shellwords.escape(@env[:ui].ask(i18n("ask.pass", :user => "#{user}@#{host}"), :echo => false))
-          command = "echo \"#{pass}\" | sshfs -o allow_other -o password_stdin #{user}@#{host}:#{source} #{target}"
-          status = machine.communicate.execute(command, :sudo => true, :error_check => false)
+
+          status = machine.communicate.execute(
+            "echo \"#{password}\" | sshfs -o allow_other -o password_stdin #{username}@#{host}:#{source} #{target}",
+            :sudo => true, :error_check => false)
 
           if status != 0
             error('not_mounted', src: source, target: target)
           end
         end
+
+        def host
+          machine.config.sshfs.host_addr
+        end
+
+        def username
+          `whoami`.strip
+        end
+
+        def password
+          Shellwords.escape(@env[:ui].ask(i18n("ask.pass", :user => "#{username}@#{host}"), :echo => false))
+        end
       end
 
       class Up
         def initialize(app, env)
-          @app = app
+          @app     = app
+          @machine = env[:machine]
         end
 
         def call(env)
-          get_builder(env).mount! if env[:machine].config.sshfs.enabled
+          get_builder(env).mount! if @machine.config.sshfs.enabled
         end
 
         def get_builder(env)
