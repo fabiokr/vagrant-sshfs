@@ -3,8 +3,10 @@ module Vagrant
     module Actions
       module Builders
         class Base
-          def initialize(env)
-            @env = env
+          attr_reader :machine, :ui
+
+          def initialize(machine, ui)
+            @machine, @ui = machine, ui
           end
 
           def mount!
@@ -24,20 +26,16 @@ module Vagrant
             machine.config.sshfs.paths
           end
 
-          def machine
-            @env[:machine]
-          end
-
           def info(key, *args)
-            @env[:ui].info(i18n("info.#{key}", *args))
+            ui.info(i18n("info.#{key}", *args))
           end
 
           def ask(key, *args)
-            @env[:ui].ask(i18n("ask.#{key}", *args), :new_line => true)
+            ui.ask(i18n("ask.#{key}", *args), :new_line => true)
           end
 
           def error(key, *args)
-            @env[:ui].error(i18n("error.#{key}", *args))
+            ui.error(i18n("error.#{key}", *args))
             raise Error, :base
           end
 

@@ -34,7 +34,7 @@ module Vagrant
           end
 
           def password
-            Shellwords.escape(@env[:ui].ask(i18n("ask.pass", :user => "#{username}@#{host}"), :echo => false))
+            Shellwords.escape(ui.ask(i18n("ask.pass", :user => "#{username}@#{host}"), :echo => false))
           end
         end
       end
