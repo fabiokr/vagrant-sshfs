@@ -26,6 +26,8 @@ The plugin is enabled by default, so it will run everytime the machine starts. I
 
 `config.sshfs.enabled = false`
 
+To manually run it, you can use the `sshfs` command. Please check `vagrant -h`.
+
 ## Issues
 
 ### Connection reset by peer

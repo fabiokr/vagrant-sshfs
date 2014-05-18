@@ -16,6 +16,10 @@ module Vagrant
       action_hook(:sshfs, :machine_action_reload) do |hook|
         hook.append(Vagrant::SshFS::Actions::Reload)
       end
+
+      command "sshfs" do
+        Vagrant::SshFS::Command
+      end
     end
   end
 end
