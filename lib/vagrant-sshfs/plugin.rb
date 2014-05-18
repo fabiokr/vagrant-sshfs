@@ -12,6 +12,10 @@ module Vagrant
       action_hook(:sshfs, :machine_action_up) do |hook|
         hook.append(Vagrant::SshFS::Actions::Up)
       end
+
+      action_hook(:sshfs, :machine_action_reload) do |hook|
+        hook.append(Vagrant::SshFS::Actions::Reload)
+      end
     end
   end
 end

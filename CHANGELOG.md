@@ -1,3 +1,9 @@
+## vagrant-sshfs 0.0.6 ##
+
+* Unmount/mount on vagrant reload
+
+    *Fabio Kreusch*
+
 ## vagrant-sshfs 0.0.5 ##
 
 *   Allows to disable the plugin to run on demand.
