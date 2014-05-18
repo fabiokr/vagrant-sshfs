@@ -22,6 +22,8 @@ module Vagrant
           end
         end
       end
+
+      class Reload < Up; end
     end
   end
 end
