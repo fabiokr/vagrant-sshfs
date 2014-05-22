@@ -4,7 +4,7 @@ A Vagrant plugin to mount a folder from the box to the host using sshfs.
 
 ## Why
 
-Common solutions for sharing folders with Vagrant include synced folder, which is pretty slow when dealing with many files, and NFS. NFS didn't work for me because of encrypted disk restrictions. An alternative was to mount a folder in the host machine pointing the a folder in the box with sshfs.
+Common solutions for sharing folders with Vagrant include synced folder, which is pretty slow when dealing with many files, and NFS. NFS didn't work for me because of encrypted disk restrictions. An alternative was to mount a folder in the host machine pointing to a folder in the box with sshfs.
 
 ## Installation
 
