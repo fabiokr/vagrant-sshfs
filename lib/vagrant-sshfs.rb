@@ -8,6 +8,7 @@ require "vagrant-sshfs/version"
 require "vagrant-sshfs/errors"
 require "vagrant-sshfs/plugin"
 require "vagrant-sshfs/actions"
+require "vagrant-sshfs/command"
 
 module Vagrant
   module SshFS

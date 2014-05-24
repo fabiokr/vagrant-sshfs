@@ -14,11 +14,13 @@ module Vagrant
           get_builder(env).mount! if @machine.config.sshfs.enabled
         end
 
+        private
+
         def get_builder(env)
           if @machine.config.sshfs.mount_on_guest
-            Builders::Guest.new(env)
+            Builders::Guest.new(env[:machine], env[:ui])
           else
-            Builders::Host.new(env)
+            Builders::Host.new(env[:machine], env[:ui])
           end
         end
       end

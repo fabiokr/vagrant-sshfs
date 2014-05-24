@@ -4,6 +4,10 @@
 
     *Fabio Kreusch*
 
+* Adds sshfs command
+
+    *Fabio Kreusch*
+
 ## vagrant-sshfs 0.0.5 ##
 
 *   Allows to disable the plugin to run on demand.
