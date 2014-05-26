@@ -15,7 +15,7 @@ module Vagrant
         end
 
         def mount(src, target)
-          `sshfs -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key}`
+          `#{sshfs_bin} -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key}`
         end
 
         def ssh_info
@@ -36,6 +36,16 @@ module Vagrant
 
         def private_key
           Array(ssh_info[:private_key_path]).first
+        end
+
+        def sshfs_bin
+          bin = `which sshfs`.chomp
+
+          if bin.empty?
+            error("bin_not_found")
+          else
+            bin
+          end
         end
 
         def check_src!(src)

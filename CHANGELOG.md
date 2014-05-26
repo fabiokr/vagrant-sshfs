@@ -1,5 +1,9 @@
 ## vagrant-sshfs 0.0.6 ##
 
+* Checks if the `sshfs` command is available
+
+    *Fabio Kreusch*
+
 * Unmount/mount on vagrant reload
 
     *Fabio Kreusch*

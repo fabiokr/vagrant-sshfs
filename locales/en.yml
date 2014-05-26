@@ -18,3 +18,4 @@ en:
           not_created_src: "Source folder `%{src}` was not created"
           not_created_target: "Target folder `%{target}` was not created"
           not_mounted: "Error when mounting `%{src}` to `%{target}`"
+          bin_not_found: "Could not find sshfs bin in the host machine. Please make sure it is installed."
