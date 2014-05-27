@@ -1,4 +1,12 @@
-## vagrant-sshfs 0.0.6 ##
+## vagrant-sshfs 0.0.5 (May 26, 2014) ##
+
+*   Allows to disable the plugin to run on demand.
+
+    *Stéphane Klein*
+
+*   Allows to mount a host folder on the guest machine
+
+    *Adrian Olek*
 
 * Checks if the `sshfs` command is available
 
@@ -11,16 +19,6 @@
 * Adds sshfs command
 
     *Fabio Kreusch*
-
-## vagrant-sshfs 0.0.5 ##
-
-*   Allows to disable the plugin to run on demand.
-
-    *Stéphane Klein*
-
-*   Allows to mount a host folder on the guest machine
-
-    *Adrian Olek*
 
 ## vagrant-sshfs 0.0.4 (March 5, 2014) ##
 
