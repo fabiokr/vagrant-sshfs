@@ -1,3 +1,9 @@
+## vagrant-sshfs 0.0.6 (Oct 14, 2014) ##
+
+*   Avoids StrictHostKeyChecking by default.
+
+    *James O'Doherty*
+
 ## vagrant-sshfs 0.0.5 (May 26, 2014) ##
 
 *   Allows to disable the plugin to run on demand.
