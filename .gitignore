@@ -2,3 +2,4 @@
 mountpoint
 .vagrant
 *.gem
+.idea

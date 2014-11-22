@@ -26,6 +26,14 @@ The plugin is enabled by default, so it will run everytime the machine starts. I
 
 `config.sshfs.enabled = false`
 
+The plugin creates missing folder by default, if you want to be prompted, you can disable it with the following configuration:
+
+`config.sshfs.prompt_сreate_folders = false`
+
+The plugin is creating folders using sudo by default, In case that is not desired, you can disable that with the following configuration:
+
+`config.sshfs.sudo = false`
+
 To manually run it, you can use the `sshfs` command. Please check `vagrant -h`.
 
 ## Issues

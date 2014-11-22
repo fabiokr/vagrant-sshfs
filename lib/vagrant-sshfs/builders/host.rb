@@ -50,8 +50,12 @@ module Vagrant
 
         def check_src!(src)
           unless machine.communicate.test("test -d #{src}")
-            if ask("create_src", src: src) == "y"
-              machine.communicate.execute("mkdir -p #{src}")
+            if machine.config.sshfs.prompt_сreate_folders == false || ask("create_src", src: src) == "y"
+              if machine.config.sshfs.sudo
+                machine.communicate.execute("sudo su -c 'mkdir -p #{src}'")
+              else
+                machine.communicate.execute("mkdir -p #{src}")
+              end
               info("created_src", src: src)
             else
               error("not_created_src", src: src)
@@ -68,7 +72,7 @@ module Vagrant
           if File.exist?(folder) && Dir.entries(folder).size > 2
             error("non_empty_target", target: folder)
           elsif !File.exist?(folder)
-            if ask("create_target", target: folder) == "y"
+            if machine.config.sshfs.prompt_сreate_folders == false || ask("create_target", target: folder) == "y"
               FileUtils.mkdir_p(folder)
               info("created_target", target: folder)
             else
