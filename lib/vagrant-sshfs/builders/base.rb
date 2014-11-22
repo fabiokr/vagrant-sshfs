@@ -17,6 +17,13 @@ module Vagrant
           end
         end
 
+        def unmount!
+          paths.each do |src, target|
+            info("unmounting", src: target)
+            unmount(target)
+          end
+        end
+
         def mount
           raise NotImplementedError
         end

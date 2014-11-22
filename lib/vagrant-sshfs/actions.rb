@@ -24,8 +24,31 @@ module Vagrant
           end
         end
       end
+      class Destroy
+        def initialize(app, env)
+          @machine = env[:machine]
+        end
+
+        def call(env)
+          get_builder(env).unmount! if @machine.config.sshfs.enabled
+        end
+
+        private
+
+        def get_builder(env)
+          if @machine.config.sshfs.mount_on_guest
+            Builders::Guest.new(env[:machine], env[:ui])
+          else
+            Builders::Host.new(env[:machine], env[:ui])
+          end
+        end
+      end
 
       class Reload < Up; end
+      class Provision < Up; end
+      class Suspend < Destroy; end
+      class Resume < Up; end
+      class Halt < Destroy; end
     end
   end
 end

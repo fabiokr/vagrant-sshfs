@@ -8,7 +8,8 @@ module Vagrant
 
         def unmount(target)
           if `which fusermount`.empty?
-            `umount #{target}`
+            `killall -9 sshfs 2>/dev/null`
+            `umount -f #{target}`
           else
             `fusermount -u -q #{target}`
           end

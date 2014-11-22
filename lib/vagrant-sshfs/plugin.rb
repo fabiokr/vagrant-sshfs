@@ -17,6 +17,26 @@ module Vagrant
         hook.append(Vagrant::SshFS::Actions::Reload)
       end
 
+      action_hook(:sshfs, :machine_action_provision) do |hook|
+        hook.append(Vagrant::SshFS::Actions::Provision)
+      end
+
+      action_hook(:sshfs, :machine_action_suspend) do |hook|
+        hook.append(Vagrant::SshFS::Actions::Suspend)
+      end
+
+      action_hook(:sshfs, :machine_action_resume) do |hook|
+        hook.append(Vagrant::SshFS::Actions::Resume)
+      end
+
+      action_hook(:sshfs, :machine_action_halt) do |hook|
+        hook.append(Vagrant::SshFS::Actions::Halt)
+      end
+
+      action_hook(:sshfs, :machine_action_destroy) do |hook|
+        hook.append(Vagrant::SshFS::Actions::Destroy)
+      end
+
       command "sshfs" do
         Vagrant::SshFS::Command
       end
