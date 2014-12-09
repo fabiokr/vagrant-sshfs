@@ -1,3 +1,11 @@
+## vagrant-sshfs 0.0.7 (Dec 8, 2014) ##
+
+*   Smooth folders creation.
+*   Unmount on machine Destroy/Halt/Suspend
+*   Remount on machine Resume/Provision/Suspend
+
+    *dmatora*
+
 ## vagrant-sshfs 0.0.6 (Oct 14, 2014) ##
 
 *   Avoids StrictHostKeyChecking by default.

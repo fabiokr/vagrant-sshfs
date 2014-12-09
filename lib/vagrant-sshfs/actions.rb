@@ -5,13 +5,9 @@ require 'vagrant-sshfs/builders/guest'
 module Vagrant
   module SshFS
     module Actions
-      class Up
+      class Base
         def initialize(app, env)
           @machine = env[:machine]
-        end
-
-        def call(env)
-          get_builder(env).mount! if @machine.config.sshfs.enabled
         end
 
         private
@@ -24,23 +20,16 @@ module Vagrant
           end
         end
       end
-      class Destroy
-        def initialize(app, env)
-          @machine = env[:machine]
-        end
 
+      class Up < Base
+        def call(env)
+          get_builder(env).mount! if @machine.config.sshfs.enabled
+        end
+      end
+
+      class Destroy < Base
         def call(env)
           get_builder(env).unmount! if @machine.config.sshfs.enabled
-        end
-
-        private
-
-        def get_builder(env)
-          if @machine.config.sshfs.mount_on_guest
-            Builders::Guest.new(env[:machine], env[:ui])
-          else
-            Builders::Host.new(env[:machine], env[:ui])
-          end
         end
       end
 

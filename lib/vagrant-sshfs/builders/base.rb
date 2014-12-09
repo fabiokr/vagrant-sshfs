@@ -9,9 +9,9 @@ module Vagrant
         end
 
         def mount!
+          unmount!
+
           paths.each do |src, target|
-            info("unmounting", src: target)
-            unmount(target)
             info("mounting", src: src, target: target)
             mount(src, target)
           end
