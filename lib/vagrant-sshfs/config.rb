@@ -4,7 +4,7 @@ module Vagrant
       attr_accessor :paths
       attr_accessor :username
       attr_accessor :enabled
-      attr_accessor :prompt_сreate_folders
+      attr_accessor :prompt_create_folders
       attr_accessor :sudo
       attr_accessor :mount_on_guest
       attr_accessor :host_addr
@@ -13,7 +13,7 @@ module Vagrant
         @paths = {}
         @username = nil
         @enabled = true
-        @prompt_сreate_folders = false
+        @prompt_create_folders = false
         @sudo = true
       end
 
