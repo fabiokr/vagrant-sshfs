@@ -28,7 +28,7 @@ The plugin is enabled by default, so it will run everytime the machine starts. I
 
 The plugin creates missing folder by default, if you want to be prompted, you can disable it with the following configuration:
 
-`config.sshfs.prompt_сreate_folders = false`
+`config.sshfs.prompt_create_folders = false`
 
 The plugin is creating folders using sudo by default, In case that is not desired, you can disable that with the following configuration:
 
