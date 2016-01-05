@@ -8,6 +8,7 @@ module Vagrant
       attr_accessor :sudo
       attr_accessor :mount_on_guest
       attr_accessor :host_addr
+      attr_accessor :name_volumes
 
       def initialize
         @paths = {}
@@ -15,6 +16,7 @@ module Vagrant
         @enabled = true
         @prompt_create_folders = false
         @sudo = true
+        @name_volumes = true
       end
 
       def merge(other)

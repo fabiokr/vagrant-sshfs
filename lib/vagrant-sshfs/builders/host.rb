@@ -16,7 +16,12 @@ module Vagrant
         end
 
         def mount(src, target)
-          `#{sshfs_bin} -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null `
+          if machine.config.sshfs.name_volumes and (/darwin/ =~ RUBY_PLATFORM) != nil
+            last_dir_name = src.split(File::SEPARATOR)[-1]
+            extra_options = "-o volname=#{last_dir_name}"
+          end
+
+          `#{sshfs_bin} -p #{port} #{username}@#{host}:#{check_src!(src)} #{check_target!(target)} -o IdentityFile=#{private_key} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null #{extra_options} `
         end
 
         def ssh_info
