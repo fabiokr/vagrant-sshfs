@@ -12,15 +12,15 @@ module Vagrant
           end
         end
 
-        def mount(src, target)
+        def mount(src, target, otheroptions)
           source = File.expand_path(src)
 
           status = machine.communicate.execute(
-            "echo \"#{password}\" | sshfs -o allow_other -o password_stdin #{username}@#{host}:#{source} #{target}",
+            "echo \"#{password}\" | sshfs -o allow_other -o password_stdin -o #{otheroptions} #{username}@#{host}:#{source} #{target}",
             :sudo => true, :error_check => false)
 
           if status != 0
-            error('not_mounted', src: source, target: target)
+            error('not_mounted', src: source, target: target, opt: otheroptions)
           end
         end
 
